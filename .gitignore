@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# Generated build trees
+# ---------------------------------------------------------------------------
+# deps/repos/                shared source clones (one per dep)
+# deps/builds/<plat>/<cfg>/  per-config dep scratch + install trees
+# builds/<plat>/<cfg>/       Sneeze's own CMake scratch (build/) + install/{bin,lib}
+
+deps/repos/
+deps/builds/
+builds/
+
+# Rust/Cargo build output (WASM test modules)
+tests/wasm/*/target/
+
+# Compiled WASM binaries (rebuilt from source)
+*.wasm
+
+# IDE and editor files
+.vs/
+.vscode/
+*.user
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+
+# OS files
+Thumbs.db
+.DS_Store
