@@ -6,7 +6,7 @@ sources: []
 verified: 10a5afd
 ---
 
-# Examples
+# Spatial Fabric Examples
 
 Hands-on, copy-and-edit walkthroughs for building spatial fabrics. Where the [Guides](../guides/index.md) explain the authoring path in concept, these examples give you a complete, working fabric you can read line by line, copy, and change. They are ordered from the simplest possible scene to progressively richer ones, so read them in order the first time through.
 
