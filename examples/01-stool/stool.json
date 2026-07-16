@@ -1,15 +1,15 @@
 {
-   "container": "example-stool",
-   "services": [],
-   "modules":
+   "Container": "example-stool",
+   "Services": [],
+   "Modules":
    [
       {
-         "url": "wasm/map.wasm"
+         "sUrl": "wasm/map.wasm"
       }
    ],
-   "data":
+   "Data":
    {
-      "scene":
+      "Scene":
       { "Head": { "Self": "P-?" }, "Name": "Stool", "Resource": { "sReference": "assets/Stool.glb" } }
    }
 }

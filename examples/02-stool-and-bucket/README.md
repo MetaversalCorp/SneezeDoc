@@ -1,6 +1,6 @@
 # Example 02 - A Bucket on the Stool
 
-This example builds directly on [Example 01](../01-stool/README.md). We keep the same stool, set a bucket on its seat, and light the whole thing ourselves: a scene-wide ambient fill and a directional "sun" declared in the fabric's `primary` block, plus two spot lights aimed at the objects. By the end you will understand how one object becomes the parent of others, how to place a child exactly where you want it, and the two different ways a fabric provides light -- scene-global lighting and placed light nodes -- instead of relying on the engine's fallback.
+This example builds directly on [Example 01](../01-stool/README.md). We keep the same stool, set a bucket on its seat, and light the whole thing ourselves: a scene-wide ambient fill and a directional "sun" declared in the fabric's `Primary` block, plus two spot lights aimed at the objects. By the end you will understand how one object becomes the parent of others, how to place a child exactly where you want it, and the two different ways a fabric provides light -- scene-global lighting and placed light nodes -- instead of relying on the engine's fallback.
 
 ## ⚠️ The following warning paragraph is different from the one in Example 01
 ## ⚠️ This is not the preferred way to encode a scene
@@ -11,19 +11,19 @@ Loading a fabric with a hard-coded list of nodes stored in a JSON structure as s
 
 - How a scene becomes a *tree*: one node can have children, and a child moves with its parent.
 - How to place a node precisely using a `Transform` (a position, and optionally a rotation and scale) measured relative to its parent.
-- The two kinds of lighting a fabric provides: **scene-global** light (ambient and a directional "sun") set once in the `primary` block, and **placed light nodes** (here, spot lights) that live in the scene tree like any other object.
-- Why authoring `primary` lighting turns off the automatic fallback from Example 01.
+- The two kinds of lighting a fabric provides: **scene-global** light (ambient and a directional "sun") set once in the `Primary` block, and **placed light nodes** (here, spot lights) that live in the scene tree like any other object.
+- Why authoring `Primary` lighting turns off the automatic fallback from Example 01.
 
 ## What is new since Example 01
 
-Example 01 was a single node with no lighting. This one is a small tree -- the stool is the top node, and the bucket and two spot lights are its children -- and it adds a new top-level `primary` block that sets the scene-global ambient and directional light. Everything else - the `container`, the empty `services`, and the single `map.wasm` module - works exactly as explained in [Example 01](../01-stool/README.md), so this walkthrough focuses only on what is new: `Children`, `Transform`, the `primary` lighting block, and light nodes.
+Example 01 was a single node with no lighting. This one is a small tree -- the stool is the top node, and the bucket and two spot lights are its children -- and it adds a new top-level `Primary` block that sets the scene-global ambient and directional light. Everything else - the `Container`, the empty `Services`, and the single `map.wasm` module - works exactly as explained in [Example 01](../01-stool/README.md), so this walkthrough focuses only on what is new: `aChildren`, `Transform`, the `Primary` lighting block, and light nodes.
 
 ## The files
 
 | File | What it is |
 |---|---|
-| `stool-and-bucket.json` | The fabric. The whole scene - stool, bucket, and two spot lights - as one file, plus the scene-global lighting in its `primary` block. |
-| `wasm/map.wasm` | The stock module that reads the scene from `data.scene` and builds it (same one every map-managed example uses). |
+| `stool-and-bucket.json` | The fabric. The whole scene - stool, bucket, and two spot lights - as one file, plus the scene-global lighting in its `Primary` block. |
+| `wasm/map.wasm` | The stock module that reads the scene from `Data.Scene` and builds it (same one every map-managed example uses). |
 | `assets/Stool.glb` | The stool model, reused from Example 01. |
 | `assets/Bucket.glb` | The bucket model. |
 
@@ -31,27 +31,27 @@ Example 01 was a single node with no lighting. This one is a small tree -- the s
 
 ```json
 {
-   "container": "example-stool-bucket",
-   "services": [],
-   "modules":
+   "Container": "example-stool-bucket",
+   "Services": [],
+   "Modules":
    [
       {
-         "url": "wasm/map.wasm"
+         "sUrl": "wasm/map.wasm"
       }
    ],
-   "primary":
+   "Primary":
    {
-      "ambient":     { "fBrightness": 0.05, "fColor": "0xFFFFFF" },
-      "directional": { "fBrightness": 0.5,  "fColor": "0xFFFFFF", "Rotation": [0.0, 0.5808, 0.6663, 0.468] }
+      "Ambient":     { "fBrightness": 0.05, "fColor": "0xFFFFFF" },
+      "Directional": { "fBrightness": 0.5,  "fColor": "0xFFFFFF", "Rotation": [0.0, 0.5808, 0.6663, 0.468] }
    },
-   "data":
+   "Data":
    {
-      "scene":
-      { "Head": { "Self": "P-?" }, "Name": "Stool", "Resource": { "sReference": "assets/Stool.glb" }, "Children":
+      "Scene":
+      { "Head": { "Self": "P-?" }, "Name": "Stool", "Resource": { "sReference": "assets/Stool.glb" }, "aChildren":
          [
             { "Head": { "Self": "P-?" }, "Name": "Bucket", "Resource": { "sReference": "assets/Bucket.glb" }, "Transform": { "Position": [0.0, 0.0, 0.428] } },
-            { "Head": { "Self": "L-?" }, "Name": "Fill Light", "Type": { "bType": 2 }, "Transform": { "Position": [-0.5, -0.45, 0.514], "Rotation": [0.0, -0.0119, 0.3582, 0.9336] }, "Properties": { "fBrightness": 0.4, "fColor": "0xB8CCFF", "fAngleOpening": 40.0, "fAngleFalloff": 12.0 } },
-            { "Head": { "Self": "L-?" }, "Name": "Rim Light",  "Type": { "bType": 2 }, "Transform": { "Position": [-0.15, 0.55, 0.814], "Rotation": [0.0, 0.2846, -0.5489, 0.786] }, "Properties": { "fBrightness": 0.4, "fColor": "0xFFE0B0", "fAngleOpening": 35.0, "fAngleFalloff": 10.0 } }
+            { "Head": { "Self": "L-?" }, "Name": "Fill Light", "Type": { "bType": 2 }, "Transform": { "Position": [-0.5, -0.45, 0.514], "Rotation": [0.0, -0.0119,  0.3582, 0.9336] }, "Properties": { "fBrightness": 0.4, "fColor": "0xB8CCFF", "fAngleOpening": 40.0, "fAngleFalloff": 12.0 } },
+            { "Head": { "Self": "L-?" }, "Name": "Rim Light",  "Type": { "bType": 2 }, "Transform": { "Position": [-0.15, 0.55, 0.814], "Rotation": [0.0,  0.2846, -0.5489, 0.786 ] }, "Properties": { "fBrightness": 0.4, "fColor": "0xFFE0B0", "fAngleOpening": 35.0, "fAngleFalloff": 10.0 } }
          ]
       }
    }
@@ -60,7 +60,7 @@ Example 01 was a single node with no lighting. This one is a small tree -- the s
 
 ## The scene is now a tree
 
-In Example 01 `data.scene` was a single node. Here that same node - the stool - gains an array of `Children`, and everything inside it becomes a child of the stool. A child belongs to its parent: it inherits the parent's place in the world, and if the parent ever moves, rotates, or scales, every child moves with it. You never write down who a node's parent is; the parent is simply whatever node the child is nested inside. That is why the bucket and the lights, written inside the stool's `Children`, are all children of the stool.
+In Example 01 `Data.Scene` was a single node. Here that same node - the stool - gains an array of `aChildren`, and everything inside it becomes a child of the stool. A child belongs to its parent: it inherits the parent's place in the world, and if the parent ever moves, rotates, or scales, every child moves with it. You never write down who a node's parent is; the parent is simply whatever node the child is nested inside. That is why the bucket and the lights, written inside the stool's `aChildren`, are all children of the stool.
 
 This is the mechanism you use to build things out of parts. Group the pieces under one node, position each piece relative to that node, and from then on you can move the whole assembly as a unit.
 
@@ -74,28 +74,28 @@ The bucket needs to rest on the seat, so it gets a `Position`. Both of these mod
 
 A fabric provides light in two different ways, and this example uses both.
 
-The first is **scene-global light**: a single ambient level and a single directional "sun" that apply to the whole scene at once. These are not objects in the scene tree; they are properties of the scene, declared in the top-level `primary` block. Only the *primary* fabric - the one the browser loaded directly - gets to set them, so a fabric that another one embeds cannot hijack the global lighting.
+The first is **scene-global light**: a single ambient level and a single directional "sun" that apply to the whole scene at once. These are not objects in the scene tree; they are properties of the scene, declared in the top-level `Primary` block. Only the *primary* fabric - the one the browser loaded directly - gets to set them, so a fabric that another one embeds cannot hijack the global lighting.
 
 The second is **placed light nodes**: ordinary nodes in the scene tree, positioned and aimed like any other object. This example uses two of them, both spot lights.
 
-**The fallback, and how to turn it off.** In Example 01 the fabric declared no lighting at all, so the engine supplied a fallback ambient light just so the model was not pure black. That fallback is tied specifically to the `primary` block: the moment a fabric sets `primary.ambient` or `primary.directional`, the fallback is gone and the scene's global light is exactly what you asked for. Placed light nodes on their own do not switch it off - the fallback is about *global* light, so only global light replaces it. This example sets both ambient and directional, so from here on the look is yours.
+**The fallback, and how to turn it off.** In Example 01 the fabric declared no lighting at all, so the engine supplied a fallback ambient light just so the model was not pure black. That fallback is tied specifically to the `Primary` block: the moment a fabric sets `Primary.Ambient` or `Primary.Directional`, the fallback is gone and the scene's global light is exactly what you asked for. Placed light nodes on their own do not switch it off - the fallback is about *global* light, so only global light replaces it. This example sets both ambient and directional, so from here on the look is yours.
 
-### The `primary` block
+### The `Primary` block
 
 ```json
-"primary":
+"Primary":
 {
-   "ambient":     { "fBrightness": 0.05, "fColor": "0xFFFFFF" },
-   "directional": { "fBrightness": 0.5,  "fColor": "0xFFFFFF", "Rotation": [0.0, 0.5808, 0.6663, 0.468] }
+   "Ambient":     { "fBrightness": 0.05, "fColor": "0xFFFFFF" },
+   "Directional": { "fBrightness": 0.5,  "fColor": "0xFFFFFF", "Rotation": [0.0, 0.5808, 0.6663, 0.468] }
 }
 ```
 
-**`ambient`** is flat, directionless fill - the same light reaching every surface from every angle, with no highlights and no shadows. It is the base level that keeps shadowed areas from going fully black. It takes two values:
+**`Ambient`** is flat, directionless fill - the same light reaching every surface from every angle, with no highlights and no shadows. It is the base level that keeps shadowed areas from going fully black. It takes two values:
 
 - **`fBrightness`** - the intensity. Here it is a very low `0.05`, just a faint floor; the real shaping comes from the directional and the spots. Turn it up toward `1.0` for a bright, shadowless overcast look; leave it near zero to let the directed lights do all the modeling.
 - **`fColor`** - an `0xRRGGBB` colour, white here. If you leave it out it defaults to white. A warm ambient reads like a room full of incandescent bounce; a cool one like open shade under a blue sky.
 
-**`directional`** is a "sun": parallel light crossing the entire scene from one direction. Because the rays are parallel it has no position and does not fall off with distance - only its *direction* matters, so it lights near and far objects identically. It takes:
+**`Directional`** is a "sun": parallel light crossing the entire scene from one direction. Because the rays are parallel it has no position and does not fall off with distance - only its *direction* matters, so it lights near and far objects identically. It takes:
 
 - **`fBrightness`** - the intensity, `0.5` here. This is the scene's main light, doing most of the shaping of the stool and bucket.
 - **`fColor`** - the colour, white here. Warm it toward amber for late-afternoon sun, or cool it toward pale blue for cold daylight.
@@ -110,7 +110,7 @@ The directional is the key - the dominant light. Two placed **spot** lights fini
 
 Each is a node with the light class id `"L-?"`. A spot is the kind of light you aim, like a stage light or a desk lamp. Its parts:
 
-- **`Type.bType`** = `2` selects a **spot** light - a light that sits at a position and casts a cone in a direction you choose, instead of shining every way at once. A spot is the natural choice for lighting a specific object: it stays where you put it and does not spill into other fabrics that might embed this one. (A `bType` of `1` is the other placed kind, a **point** light, which shines every way at once from its position. Ambient and directional are not node types at all - they are the scene-global `primary` values above.)
+- **`Type.bType`** = `2` selects a **spot** light - a light that sits at a position and casts a cone in a direction you choose, instead of shining every way at once. A spot is the natural choice for lighting a specific object: it stays where you put it and does not spill into other fabrics that might embed this one. (A `bType` of `1` is the other placed kind, a **point** light, which shines every way at once from its position. Ambient and directional are not node types at all - they are the scene-global `Primary` values above.)
 - **`Transform.Position`** places the light relative to the stool, just like the bucket. The two positions put the fill to the front-left and the rim behind and above.
 - **`Transform.Rotation`** aims the cone - the same quaternion-aims-the-forward-direction idea as the directional's `Rotation`. Each spot is turned to point at the seat where the bucket sits. You rarely write these four numbers by hand; you either compute them to aim at a point or copy a working set and adjust.
 - **`Properties.fAngleOpening`** and **`fAngleFalloff`** shape the cone, in degrees. `fAngleOpening` is how wide the beam is (smaller is a tighter spot); `fAngleFalloff` is how soft its edge is (smaller is a crisper circle). The values here - opening 35 to 40, falloff 10 to 12 - give a broad, gentle pool rather than a hard theatrical spot.
