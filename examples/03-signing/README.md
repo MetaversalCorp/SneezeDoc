@@ -47,28 +47,99 @@ The hash goes on the module entry, beside its `sUrl`:
 
 ```json
 {
-   "Container": "example-signed",
-   "Services": [],
-   "Modules":
-   [
+   "Container":"example-signed",
+   "Services":[
+      
+   ],
+   "Modules":[
       {
-         "sUrl": "wasm/map.wasm",
-         "sHash": "sha256-a7b9b03a6bf7e88a3cd3dd65fff6dae263f7c8ad61864dbd6aedcadfbcf66718"
+         "sUrl":"wasm/map.wasm",
+         "sHash":"sha256-a7b9b03a6bf7e88a3cd3dd65fff6dae263f7c8ad61864dbd6aedcadfbcf66718"
       }
    ],
-   "Primary":
-   {
-      "Ambient":     { "fBrightness": 0.05, "fColor": "0xFFFFFF" },
-      "Directional": { "fBrightness": 0.5,  "fColor": "0xFFFFFF", "Rotation": [0.0, 0.5808, 0.6663, 0.468] }
+   "Primary":{
+      "Ambient":{
+         "fBrightness":0.05,
+         "fColor":"0xFFFFFF"
+      },
+      "Directional":{
+         "fBrightness":0.5,
+         "fColor":"0xFFFFFF",
+         "Rotation":[
+            0.0, 0.5808, 0.6663, 0.468
+         ]
+      }
    },
-   "Data":
-   {
-      "Scene":
-      { "Head": { "Self": "P-?" }, "Name": "Stool", "Resource": { "sReference": "assets/Stool.glb" }, "aChildren":
-         [
-            { "Head": { "Self": "P-?" }, "Name": "Bucket", "Resource": { "sReference": "assets/Bucket.glb" }, "Transform": { "Position": [0.0, 0.0, 0.428] } },
-            { "Head": { "Self": "L-?" }, "Name": "Fill Light", "Type": { "bType": 2 }, "Transform": { "Position": [-0.5, -0.45, 0.514], "Rotation": [0.0, -0.0119,  0.3582, 0.9336] }, "Properties": { "fBrightness": 0.4, "fColor": "0xB8CCFF", "fAngleOpening": 40.0, "fAngleFalloff": 12.0 } },
-            { "Head": { "Self": "L-?" }, "Name": "Rim Light",  "Type": { "bType": 2 }, "Transform": { "Position": [-0.15, 0.55, 0.814], "Rotation": [0.0,  0.2846, -0.5489, 0.786 ] }, "Properties": { "fBrightness": 0.4, "fColor": "0xFFE0B0", "fAngleOpening": 35.0, "fAngleFalloff": 10.0 } }
+   "Data":{
+      "Scene":{
+         "Head":{
+            "Self":"P-?"
+         },
+         "Name":"Stool",
+         "Resource":{
+            "sReference":"assets/Stool.glb"
+         },
+         "aChildren":[
+            {
+               "Head":{
+                  "Self":"P-?"
+               },
+               "Name":"Bucket",
+               "Resource":{
+                  "sReference":"assets/Bucket.glb"
+               },
+               "Transform":{
+                  "Position":[
+                     0.0, 0.0, 0.428
+                  ]
+               }
+            },
+            {
+               "Head":{
+                  "Self":"L-?"
+               },
+               "Name":"Fill Light",
+               "Type":{
+                  "bType":2
+               },
+               "Transform":{
+                  "Position":[
+                     -0.5, -0.45, 0.514
+                  ],
+                  "Rotation":[
+                     0.0, -0.0119, 0.3582, 0.9336
+                  ]
+               },
+               "Properties":{
+                  "fBrightness":0.4,
+                  "fColor":"0xB8CCFF",
+                  "fAngleOpening":40.0,
+                  "fAngleFalloff":12.0
+               }
+            },
+            {
+               "Head":{
+                  "Self":"L-?"
+               },
+               "Name":"Rim Light",
+               "Type":{
+                  "bType":2
+               },
+               "Transform":{
+                  "Position":[
+                     -0.15, 0.55, 0.814
+                  ],
+                  "Rotation":[
+                     0.0, 0.2846, -0.5489, 0.786
+                  ]
+               },
+               "Properties":{
+                  "fBrightness":0.4,
+                  "fColor":"0xFFE0B0",
+                  "fAngleOpening":35.0,
+                  "fAngleFalloff":10.0
+               }
+            }
          ]
       }
    }
