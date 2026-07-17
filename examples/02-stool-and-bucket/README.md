@@ -49,10 +49,7 @@ Example 01 was a single node with no lighting. This one is a small tree -- the s
          "fBrightness":0.5,
          "fColor":"0xFFFFFF",
          "Rotation":[
-            0.0,
-            0.5808,
-            0.6663,
-            0.468
+            0.0, 0.5808, 0.6663, 0.468
          ]
       }
    },
@@ -76,9 +73,7 @@ Example 01 was a single node with no lighting. This one is a small tree -- the s
                },
                "Transform":{
                   "Position":[
-                     0.0,
-                     0.0,
-                     0.428
+                     0.0, 0.0, 0.428
                   ]
                }
             },
@@ -92,15 +87,10 @@ Example 01 was a single node with no lighting. This one is a small tree -- the s
                },
                "Transform":{
                   "Position":[
-                     -0.5,
-                     -0.45,
-                     0.514
+                     -0.5, -0.45, 0.514
                   ],
                   "Rotation":[
-                     0.0,
-                     -0.0119,
-                     0.3582,
-                     0.9336
+                     0.0, -0.0119, 0.3582, 0.9336
                   ]
                },
                "Properties":{
@@ -120,15 +110,10 @@ Example 01 was a single node with no lighting. This one is a small tree -- the s
                },
                "Transform":{
                   "Position":[
-                     -0.15,
-                     0.55,
-                     0.814
+                     -0.15, 0.55, 0.814
                   ],
                   "Rotation":[
-                     0.0,
-                     0.2846,
-                     -0.5489,
-                     0.786
+                     0.0, 0.2846, -0.5489, 0.786
                   ]
                },
                "Properties":{
