@@ -35,18 +35,25 @@ Here is the whole file:
 
 ```json
 {
-   "Container": "example-stool",
-   "Services": [],
-   "Modules":
-   [
+   "Container":"example-stool",
+   "Services":[
+      
+   ],
+   "Modules":[
       {
-         "sUrl": "wasm/map.wasm"
+         "sUrl":"wasm/map.wasm"
       }
    ],
-   "Data":
-   {
-      "Scene":
-      { "Head": { "Self": "P-?" }, "Name": "Stool", "Resource": { "sReference": "assets/Stool.glb" } }
+   "Data":{
+      "Scene":{
+         "Head":{
+            "Self":"P-?"
+         },
+         "Name":"Stool",
+         "Resource":{
+            "sReference":"assets/Stool.glb"
+         }
+      }
    }
 }
 ```
