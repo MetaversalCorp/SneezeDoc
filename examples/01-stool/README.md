@@ -14,6 +14,10 @@ This example will guide you through making a very simple spatial fabric. By the 
 3. [The Stool.glb 3D Model](https://cdn.rp1.com/sneeze/examples/assets/Stool.glb)
 </details>
 
+#### Create the `my-fabric` folder with `wasm` and `assets` sub-folders on your webserver
+
+Upload the files into the folders as follows:
+
 ```text
 my-fabric/
 ├── stool.json
@@ -22,7 +26,9 @@ my-fabric/
 └── assets/
     └── Stool.glb
 ```
-So that it is available at: `https:<your-webserver>/my-fabric/stool.json` in a web browser
+Check that it is available at: `https:<your-webserver>/my-fabric/stool.json` in a web browser
+
+(e.g. [https://cdn.rp1.com/sneeze/examples/stool.json](https://cdn.rp1.com/sneeze/examples/stool.json) )
 
 ### 2. (Install and) Run the Artemis Browser
 Install: [Download & Install latest Artemis Browser](https://omb.wiki/en/artemis)
