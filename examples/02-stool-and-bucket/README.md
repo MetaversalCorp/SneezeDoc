@@ -30,6 +30,63 @@ Example 01 was a single node with no lighting. This one is a small tree -- the s
 ## The fabric
 
 ```json
+{
+   "Container":"example-stool-bucket",
+   "Services":[
+      
+   ],
+   "Modules":[
+      {
+         "sUrl":"wasm/map.wasm"
+      }
+   ],
+   "Primary":{
+      "Ambient":{
+         "fBrightness":0.05,
+         "fColor":"0xFFFFFF"
+      },
+      "Directional":{
+         "fBrightness":0.5,
+         "fColor":"0xFFFFFF",
+         "Rotation":[
+            0.0,
+            0.5808,
+            0.6663,
+            0.468
+         ]
+      }
+   },
+   "Data":{
+      "Scene":{
+         "Head":{
+            "Self":"P-?"
+         },
+         "Name":"Stool",
+         "Resource":{
+            "sReference":"assets/Stool.glb"
+         },
+         "aChildren":[
+            {
+               "Head":{
+                  "Self":"P-?"
+               },
+               "Name":"Bucket",
+               "Resource":{
+                  "sReference":"assets/Bucket.glb"
+               },
+               "Transform":{
+                  "Position":[
+                     0.0,
+                     0.0,
+                     0.428
+                  ]
+               }
+            },
+            {
+               "Head":{
+                  "Self":"L-?"
+               },
+               "Name":"Fill Light",
                "Type":{
                   "bType":2
                },
