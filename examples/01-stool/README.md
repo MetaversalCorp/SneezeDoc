@@ -2,15 +2,53 @@
 
 This example will guide you through making a very simple spatial fabric. By the end of it you will have put one 3D object on the screen, and you will understand the handful of parts that every other example is built from.
 
-## What is a spatial fabric?
+## Quickstart Steps
+### 1. Create the folders & upload 3 files to your webserver
+<details close>
+   <summary>Download the files</summary>
+   
+1. Right-click and "Save link..." [the stool.json spatial fabric file](https://cdn.rp1.com/sneeze/examples/stool.json)
+   
+2. [The map.wasm file](https://cdn.rp1.com/sneeze/examples/wasm/map.wasm)
+   
+3. [The Stool.glb 3D Model](https://cdn.rp1.com/sneeze/examples/assets/Stool.glb)
+</details>
 
+```text
+my-fabric/
+├── stool.json
+├── wasm/
+│   └── map.wasm
+└── assets/
+    └── Stool.glb
+```
+So that it is available at: `https:<your-webserver>/my-fabric/stool.json` in a web browser
+
+### 2. (Install and) Run the Artemis Browser
+Install: [Download & Install latest Artemis Browser](https://omb.wiki/en/artemis)
+
+Once installed, run Artemis
+
+### 3: Go to your created fabric
+In the address bar of Artemis, enter
+`https:<your-webserver>/my-fabric/stool.json`
+
+### 4. This will load the stool fabric
+The browser will fetch and display the created fabric.
+
+## What is a spatial fabric?
+<details close>
+<summary>A 3D space</summary>
 A spatial fabric is a 3D space described as data. Instead of writing a program that draws a scene, you write a file that *describes* what is in the scene, and the engine reads that file and draws it for you. The file is called a spatial fabric. This example's fabric is `stool.json`, and it describes a scene containing exactly one thing: a stool.
 
 Think of it like a web page. A web page is a text file that describes a document, and the browser turns it into something you can look at. A fabric is a text file that describes a 3D space, and the engine turns it into something you can look at and move through.
 
+
+
 ## ⚠️ This is not the preferred way to publish
 
 Loading a fabric as plain, unsigned JSON as shown below works today and is convenient while you are learning, but it is not how a fabric is meant to be published, and it may not always work. Browsers will expect fabric files to to be *signed*: signing wraps the fabric with proof of who created it and a guarantee that it was not altered on its way to the browser. Plain JSON offers neither, so the browser treats it as a convenience for local experimentation, not as a real, publishable fabric. A later example introduces signing and shows how to turn a plain fabric like this one into a signed, publishable file; see [Publishing a Signed Fabric](../03-signing/README.md) for the direction that is headed.
+</details>
 
 ## What this example teaches
 
@@ -57,6 +95,8 @@ Here is the whole file:
    }
 }
 ```
+<details close>
+   <summary>What does each data block do?</summary>
 
 **`Container`** defines a container identifier that is used to group together fabrics that you publish into executable units. Spatial fabrics that you publish with the same container identifier will run in the same container, sharing network connections, storage space, cached files, and console output. If you create separate fabrics that you want to run in separate containers, simply give each one their own identifier. Know that you can only share containers among fabrics that you or your organization publishes. You'll learn more about that a little later.
 
@@ -71,6 +111,7 @@ Here is the whole file:
 - **`Resource.sReference`** is the address of the 3D model to draw for this object. When the engine builds this node, it downloads this `.glb` file and draws it.
 
 That is the entire scene: a fabric that runs the map module, which reads one physical object, which draws one model.
+</details>
 
 ## Deploying it so the browser can load it
 
