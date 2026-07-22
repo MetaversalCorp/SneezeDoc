@@ -1,0 +1,12 @@
+{
+   "Container": "example-cwasm",
+   "Services": [],
+   "Modules": [
+      {
+         "sUrl": "wasm/module.wasm"
+      }
+   ],
+   "Data": {
+
+   }
+}
