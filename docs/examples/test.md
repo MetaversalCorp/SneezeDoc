@@ -36,12 +36,12 @@ my-fabric/
 ```
 1. Copy the `my-fabric` folder onto your webserver
 1. Launch Artemis
-1. In the address bar of Artemis, use `https:<your-webserver>/my-fabric/stool.json`
-1. You should now see your stool fabric.
+1. In the address bar of Artemis, use `https://<your-webserver>/my-fabric/stool.json`
+![ss_stool.jpg](/ss_stool.jpg)
 
 ## Details
 
-Here is the whole file:
+Here is `stool.json` file:
 
 ```json
 {
