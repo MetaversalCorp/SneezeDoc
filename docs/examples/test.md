@@ -11,42 +11,84 @@ nav:
   next: examples/building-signmsf.md
 ---
 
-# Example Test - Publishing a Test Signed Spatial Fabric
+# Example Stool
 
-This test example builds on [Example 02](../02-stool-and-bucket/README.md), but it does not change the scene at all. The stool, the bucket, and the lighting - the `Primary` block's ambient and directional light plus the two spot lights - are exactly the same. What changes is how the fabric is prepared for the world to load: we pin its module to an exact version with a hash, and then we sign the whole fabric into a Metaverse Spatial Fabric (`.msf`) file. This is the preferred way to publish a spatial fabric because it provides the security necessary to identify you as the publisher of the fabric.
+This example will guide you through making a very simple spatial fabric. By the end of it you will have put one 3D object on the screen, and you will understand the handful of parts that every other example is built from.
 
-## ⚠️ The following warning paragraph is different from the ones in Examples 01 & 02
+## Prerequisites
 
+1. Artemis Browser
+1. Web Server (local or Hosted)
 
+## Quickstart
 
-## ⚠️ Fabric security measures are not fully utilized... yet
+If you want to see what the final output looks like, just follow these quick instructions.
 
-At present, the browser computes and reports a fabric's trust level, but it does not yet refuse a fabric for being unsigned or untrusted - it loads them all today. So signing right now is about attaching a real, verifiable identity to your work and being ready for when enforcement arrives; it is not yet a gate that keeps unsigned fabrics out. Sign your published fabrics anyway - the identity inside them is genuine and future-proof.
+1. Create a directory/folder (i.e. my-fabric) for the spatial fabric 
+1. Download the [initial project skeleton](https://cdn.rp1.com/sneeze/examples/stool.zip) and unzip its contents in the directory you just created. Make sure that the resulting structure looks like this:
+```text
+my-fabric/
+├── stool.json
+├── wasm/
+│   └── map.wasm
+└── assets/
+    └── Stool.glb
+```
+1. Copy the `my-fabric` folder onto your webserver
+1. Launch Artemis
+1. In the address bar of Artemis, use `https:<your-webserver>/my-fabric/stool.json`
+1. You should now see your stool fabric.
 
-## Why sign a fabric?
+## Details
 
-A plain JSON fabric works while you are learning, but it cannot prove who wrote it, and it cannot prove that what the browser downloaded is what the author actually published. Anyone could alter the file in transit, or serve a different file entirely, and the browser would have no way to tell. Signing fixes both. A signed fabric carries the author's certificate inside it, so the browser learns who published it, and it carries a cryptographic signature over the exact bytes of the payload, so the browser can tell if a single character was changed. The signed file is the real, publishable form of a fabric.
+Here is the whole file:
 
-## What this example teaches
+```json
+{
+   "Container":"example-stool",
+   "Services":[
+      
+   ],
+   "Modules":[
+      {
+         "sUrl":"wasm/map.wasm"
+      }
+   ],
+   "Data":{
+      "Scene":{
+         "Head":{
+            "Self":"P-?"
+         },
+         "Name":"Stool",
+         "Resource":{
+            "sReference":"assets/Stool.glb"
+         }
+      }
+   }
+}
+```
+<details close>
+   <summary>What does each data block do?</summary>
 
-- How to pin a module to an exact version with a hash, so the browser refuses a module that does not match.
-- Where the ready-made signing credentials live for local testing, and how you get your own for real publishing.
-- How to sign a fabric into a `.msf` file using the metaverse browser you already have, and how to verify the result before you publish it.
+**`Container`** defines a container identifier that is used to group together fabrics that you publish into executable units. Spatial fabrics that you publish with the same container identifier will run in the same container, sharing network connections, storage space, cached files, and console output. If you create separate fabrics that you want to run in separate containers, simply give each one their own identifier. Know that you can only share containers among fabrics that you or your organization publishes. You'll learn more about that a little later.
 
+**`Services`** describes the connection settings for outside services that a running module connects to, such as a map or a live data source. This example does not utilize services, so the list is empty. Services are covered in a later example.
 
+**`Modules`** lists the programs the fabric runs. This example lists one module, `map.wasm`, which is a general-purpose program that we'll examine in a later example. The job of `map.wasm` is to read a tree of objects out of the `data` section and turn each object into a node in the scene, which is exactly why this fabric can show a stool without you writing any code of your own. If you provide a scene but list no module to interpret it, nothing would be added to the scene.
 
-## What is new since Example 02
+**`Data`** is a general block of information the fabric carries for its modules to read; you can put anything you want in it. The `map.wasm` program we're running looks in one specific place inside it -- **`Data.Scene`** -- for the tree of objects that makes up the scene. In this particular example, `data.scene` is just a single object. Its three parts are:
 
-The scene is identical to Example 02, so nothing in the `data` tree or the `Primary` lighting block is new. The two new things are a `sHash` on the module, and the signing step that turns the plain `signed-stool-and-bucket.json` into the signed `signed-stool-and-bucket.msf`. Everything about the scene itself - `Container`, the `Primary` lighting, the `Children` tree, `Transform`, and the spot lights - works exactly as [Example 02](../02-stool-and-bucket/README.md) explained.
+- **`Head.Self`** is the object's identifier, written as a class letter, a hyphen, and an index. The letter is the kind of object and the index is which one it is within its container. `P` indicates the node is a physical object, meaning an ordinary solid thing. Here, instead of a fixed number, the index is a `?`, as in `"P-?"`. The `?` tells the engine to assign the next free index in the container automatically, rather than you hard-coding one. This matters because more than one published fabric can be loaded into the same container, and if each hard-coded its own `P-1` the identifiers would collide. Letting the engine hand out the index keeps every object unique no matter how many fabrics share the container. You can still write a fixed index like `"P-1"` when you deliberately want to name a specific object, but `"P-?"` is the safe default.
+- **`Name`** is a readable label for the object. Here it is `"Stool"`. It is for your benefit and does not affect what is drawn.
+- **`Resource.sReference`** is the address of the 3D model to draw for this object. When the engine builds this node, it downloads this `.glb` file and draws it.
 
-## The files
+That is the entire scene: a fabric that runs the map module, which reads one physical object, which draws one model.
+</details>
 
+## Deploying it so the browser can load it
 
-| File                                    | What it is                                                                                                                   |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `signed-stool-and-bucket.json`          | The payload: the plain fabric you write and then sign. Same scene as Example 02, plus a module hash.                         |
-| `signed-stool-and-bucket.msf`           | The signed fabric: the payload wrapped with a signature and the author's certificate. This is the file you actually publish. |
-| `wasm/map.wasm`                         | The stock module, shared with the other examples.                                                                            |
-| `assets/Stool.glb`, `assets/Bucket.glb` | The models, reused from Examples 01 and 02.                                                                                  |
+The finished metaverse browser will not (yet) load a fabric from your local disk; it loads it from the network, the same way a web browser loads a page from a web address. Each thing the fabric names - the module in `modules` and the model in `data` - is given as an address, and that address can be written two ways. A full address, one that includes a `scheme://` such as `https://...`, is used exactly as written. Anything shorter is a relative address, resolved against the fabric's own location just as a web browser resolves a relative link on a page: a plain name like `assets/Stool.glb` is looked up in the folder the fabric lives in, a leading `/` starts from the host root, and `..` steps up a folder. That is why this fabric can simply say `wasm/map.wasm` and `assets/Stool.glb` - both sit alongside `stool.json`, so they resolve to `.../sneeze/examples/wasm/map.wasm` and `.../sneeze/examples/assets/Stool.glb`. Either way, every file the fabric references has to end up at an address the browser can reach over the internet.
 
+## Where the light comes from
 
+This fabric does not describe any lights -- we'll introduce lighting in the next example. A scene with no light in it would be pure black and invisible, so when a fabric provides no lighting of its own, the engine falls back to a plain ambient light: a soft, even fill that arrives from every direction at once. That fallback is the only reason you can see the stool here at all. Because ambient light has no direction, it reveals the model's colour and form flatly -- there are no bright highlights or cast shadows, since those only appear when light comes from a definite direction. The next examples add lights on purpose, so that you -- not the fallback -- decide how the scene looks and where the shadows fall.
