@@ -95,16 +95,16 @@ Here is `stool.json` file:
 ```
 
 - **`Head.Self`** is the object's identifier. The nomenclature is the following:
-   - Single Character, which indicates the Object Class Type:
-      - **`R`** Root Object, meaning ...
-      - **`C`** Celestial Object, meaning ...
-      - **`T`** Terrestial Object, meaning ...
-      - **`P`** Physical Object, meaning an ordinary solid thing.
-      - **`L`** Light Object, meaning ...
-   - Hyphen, which is just a separator
-   - Index, which is an identifier which can be:
-      - **`?`** The engine will assign the next free index in the container automatically. In this example, we use `?`.
-      - **`Number`** This assigns a specific number to identify this object. Note, this number **must be unique** within a container, otherwise you will have a collision. Typically it is safer to use `?` to avoid collision.
+    - Object Class Type, which is a single character:
+        - **`R`** Root Object, meaning ...
+        - **`C`** Celestial Object, meaning ...
+        - **`T`** Terrestial Object, meaning ...
+        - **`P`** Physical Object, meaning an ordinary solid thing.
+        - **`L`** Light Object, meaning ...
+    - Hyphen, which is just a separator
+    - Index, which is an identifier which can be:
+        - **`?`** The engine will assign the next free index in the container automatically. In this example, we use `?`.
+        - **`Number`** This assigns a specific number to identify this object. Note, this number **must be unique** within a container, otherwise you will have a collision. Typically it is safer to use `?` to avoid collision.
 - **`Name`** is a readable label for the object. Here it is `"Stool"`. It is for your benefit and does not affect what is drawn.
 - **`Resource.sReference`** is the address of the 3D model to draw for this object. When the engine builds this node, it downloads this `.glb` file and draws it. The paths are relative to location of the spatial fabric. In this example, we will load `Stool.glb` in a subfolder named `assets`.
 
